@@ -1,0 +1,38 @@
+{
+  "total_records": 170692,
+  "real_records": 70692,
+  "synthetic_records": 100000,
+  "features": [
+    "BMI",
+    "Age",
+    "HighBP",
+    "HeartDiseaseorAttack",
+    "Sex",
+    "GenHlth",
+    "MentHlth",
+    "PhysHlth",
+    "DiffWalk",
+    "Education",
+    "Income",
+    "Smoker",
+    "Stroke",
+    "PhysActivity",
+    "Fruits",
+    "Veggies",
+    "HvyAlcoholConsump",
+    "AnyHealthcare",
+    "NoDocbcCost",
+    "HbA1c_level",
+    "blood_glucose_level",
+    "smoking_history_encoded"
+  ],
+  "feature_count": 22,
+  "target_distribution": {
+    "0": 126846,
+    "1": 43846
+  },
+  "target_percentage": {
+    "0": 74.31279731914793,
+    "1": 25.68720268085206
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "model_name": "Hist Gradient Boosting",
+  "accuracy": 0.8562640967808078,
+  "precision": 0.6612391449565799,
+  "recall": 0.9030676245866119,
+  "f1_score": 0.7634610749578211,
+  "auc": 0.9420630344299283,
+  "features": [
+    "BMI",
+    "Age",
+    "HighBP",
+    "HeartDiseaseorAttack",
+    "Sex",
+    "GenHlth",
+    "MentHlth",
+    "PhysHlth",
+    "DiffWalk",
+    "Education",
+    "Income",
+    "Smoker",
+    "Stroke",
+    "PhysActivity",
+    "Fruits",
+    "Veggies",
+    "HvyAlcoholConsump",
+    "AnyHealthcare",
+    "NoDocbcCost",
+    "HbA1c_level",
+    "blood_glucose_level",
+    "smoking_history_encoded"
+  ],
+  "feature_count": 22
+}
