@@ -40,15 +40,36 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 @st.cache_resource
+@st.cache_resource
 def load_model():
-    model_path = os.path.join('..', 'backend', 'models', 'diabetes_model.pkl')
-    scaler_path = os.path.join('..', 'backend', 'models', 'scaler.pkl')
-    imputer_path = os.path.join('..', 'backend', 'models', 'imputer.pkl')
-    info_path = os.path.join('..', 'backend', 'models', 'model_info.json')
+    possible_paths = [
+        os.path.join('backend', 'models', 'diabetes_model.pkl'),
+        os.path.join('..', 'backend', 'models', 'diabetes_model.pkl'),
+        os.path.join('.', 'backend', 'models', 'diabetes_model.pkl'),
+        'backend/models/diabetes_model.pkl',
+        '../backend/models/diabetes_model.pkl'
+    ]
     
-    if not os.path.exists(model_path):
-        st.error("Model not found. Please run model_training.py first.")
+    model_path = None
+    for path in possible_paths:
+        if os.path.exists(path):
+            model_path = path
+            break
+    
+    if model_path is None:
+        st.error("Model not found. Please ensure model files are in the repository.")
+        st.write("Current directory:", os.getcwd())
+        st.write("Files in current directory:", os.listdir('.'))
+        if os.path.exists('backend'):
+            st.write("Files in backend:", os.listdir('backend'))
+            if os.path.exists('backend/models'):
+                st.write("Files in backend/models:", os.listdir('backend/models'))
         return None, None, None, None
+    
+    base_path = os.path.dirname(model_path)
+    scaler_path = os.path.join(base_path, 'scaler.pkl')
+    imputer_path = os.path.join(base_path, 'imputer.pkl')
+    info_path = os.path.join(base_path, 'model_info.json')
     
     model = joblib.load(model_path)
     scaler = joblib.load(scaler_path)
