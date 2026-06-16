@@ -27,7 +27,6 @@ desktop.ini
 *.xlsx
 *.xls
 
-*.pkl
 *.h5
 *.pb
 *.onnx
