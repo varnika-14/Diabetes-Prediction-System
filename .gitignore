@@ -24,7 +24,6 @@ htmlcov/
 Thumbs.db
 desktop.ini
 
-*.csv
 *.xlsx
 *.xls
 
@@ -35,8 +34,6 @@ desktop.ini
 
 .streamlit/
 
-.ipynb_checkpoints/
-*.ipynb
 
 *.log
 logs/
