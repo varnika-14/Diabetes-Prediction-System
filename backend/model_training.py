@@ -16,7 +16,6 @@ warnings.filterwarnings("ignore")
 print("STEP 2: MODEL TRAINING")
 print("")
 
-print("Loading combined dataset...")
 df = pd.read_csv('data/combined_diabetes_dataset.csv')
 print("Dataset loaded: " + str(df.shape[0]) + " rows, " + str(df.shape[1]) + " columns")
 
