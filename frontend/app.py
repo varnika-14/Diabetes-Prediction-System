@@ -44,7 +44,27 @@ st.markdown("""
 
 @st.cache_resource
 def load_models():
-    base_path = os.path.join('..','backend','models')
+    possible_paths = [
+        os.path.join('backend', 'models'),
+        os.path.join('..', 'backend', 'models'),
+        'models',
+        os.path.join('.', 'backend', 'models')
+    ]
+    
+    base_path = None
+    for path in possible_paths:
+        if os.path.exists(os.path.join(path, 'model_nonclinical.pkl')):
+            base_path = path
+            break
+    
+    if base_path is None:
+        st.error("Model files not found. Please ensure models are in the correct path.")
+        st.write("Current working directory:", os.getcwd())
+        if os.path.exists('backend'):
+            st.write("Files in backend:", os.listdir('backend'))
+            if os.path.exists('backend/models'):
+                st.write("Files in backend/models:", os.listdir('backend/models'))
+        return None
     
     model1 = joblib.load(os.path.join(base_path, 'model_nonclinical.pkl'))
     scaler1 = joblib.load(os.path.join(base_path, 'scaler_nonclinical.pkl'))
@@ -137,7 +157,11 @@ def main():
     
     models = load_models()
     
-    tab1, tab2, tab3 = st.tabs(["Quick Screening (No Blood Tests)", "Detailed Assessment (With Blood Tests)", "Chat Assistant"])    
+    if models is None:
+        st.stop()
+    
+    tab1, tab2, tab3 = st.tabs(["Quick Screening (No Blood Tests)", "Detailed Assessment (With Blood Tests)", "Chat Assistant"])
+    
     with tab1:
         st.markdown("### Quick Screening - No Blood Tests Required")
         st.info("This assessment uses only your lifestyle and demographic information. No blood tests needed. You can complete this in 2 minutes.")
@@ -356,9 +380,13 @@ def main():
                     with col2:
                         glucose_status = "Normal" if blood_glucose < 100 else "Prediabetes" if blood_glucose < 126 else "Diabetes"
                         st.metric("Blood Glucose", f"{blood_glucose} mg/dL", delta=glucose_status)
+    
     with tab3:
-        from chatbot import show_chatbot
-        show_chatbot()
+        try:
+            from chatbot import show_chatbot
+            show_chatbot()
+        except ImportError:
+            st.error("Chatbot module not found. Please ensure chatbot.py exists in the same folder.")
 
 if __name__ == "__main__":
     main()
